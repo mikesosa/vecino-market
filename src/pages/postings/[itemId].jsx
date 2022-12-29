@@ -9,7 +9,6 @@ import { ItemLayout } from "@/components/ItemLayout";
 
 export default function Item({ item }) {
   const getPhotos = (photos) => {
-    console.log("photos", photos);
     return photos.map(({ attributes }) => {
       return {
         src: process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL + attributes.url,
@@ -126,7 +125,6 @@ export default function Item({ item }) {
 
 export async function getServerSideProps(context) {
   const { params: id } = context;
-  console.log("id", id);
   const {
     data: { item },
   } = await client.query({
