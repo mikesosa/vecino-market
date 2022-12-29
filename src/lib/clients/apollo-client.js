@@ -28,13 +28,8 @@ const authLink = setContext((_, { headers }) => {
 
 const newApolloLink = ApolloLink.split(
   (operation) => !operation.getContext().clientName, // Default client
-
   authLink.concat(uploadLink),
   authLink.concat(httpLink)
-  //     ? operation.getContext().hasUpload
-  //     : operation.getContext().hasUpload,
-  // uploadLink,
-  // httpLink
 );
 
 const defaultOptions = {

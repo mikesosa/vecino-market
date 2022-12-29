@@ -12,7 +12,7 @@ export default function Item({ item }) {
     console.log("photos", photos);
     return photos.map(({ attributes }) => {
       return {
-        src: "http://localhost:1337" + attributes.url,
+        src: process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL + attributes.url,
         alt: "",
       };
     });
