@@ -6,6 +6,7 @@ import { Button } from "@/components/atoms/Button";
 import { useRouter } from "next/router";
 import client from "@/lib/clients/apollo-client";
 import { GET_ITEMS } from "@/lib/gpl/queries/getItems";
+import { formatCurrency } from "@/lib/formatCurrency";
 
 export default function PostingsIndex({ postings }) {
   const router = useRouter();
@@ -60,7 +61,9 @@ export default function PostingsIndex({ postings }) {
                 </p>
                 <div className="flex flex-1 flex-col justify-end">
                   <p className="text-base font-medium text-gray-900 text-right">
-                    {attributes.price ? `$${attributes.price}` : "Gratis"}
+                    {attributes.price
+                      ? formatCurrency(attributes.price)
+                      : "Gratis"}
                   </p>
                   <p className="mt-2 text-sm italic text-gray-500 text-left">
                     Publicado hace {formatFromDistance(attributes.createdAt)}

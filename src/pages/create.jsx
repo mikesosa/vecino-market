@@ -147,6 +147,7 @@ export default function Home() {
                   name="price"
                   errors={errors}
                   placeholder="Ej: 100000"
+                  pattern="\d*"
                   {...register("price")}
                 />
               </div>
