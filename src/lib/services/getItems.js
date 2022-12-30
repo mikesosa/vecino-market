@@ -26,7 +26,6 @@ const getItems = async () => {
       return response.data;
     })
     .catch((error) => {
-      console.log("error", JSON.stringify(error, null, 2));
       throw new Error(error);
     });
 };

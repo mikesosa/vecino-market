@@ -166,7 +166,6 @@ class ApiClient {
   }
 
   post(url, data = {}, conf = {}) {
-    console.log(this.client);
     return this.client
       .post(url, data, conf)
       .then((response) => Promise.resolve(response))

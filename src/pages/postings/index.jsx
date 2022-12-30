@@ -22,7 +22,11 @@ export default function PostingsIndex({ postings }) {
       <SimpleLayout
         title="VittareMarket - Anuncios"
         intro='En esta página, encontrarás una gran variedad de artículos que se venden en tu vecindario. Si quieres publicar un anuncio, solo tienes que hacer clic en el botón "Publicar anuncio" y sigue las instrucciones.'
-        button={<Button href="/create">Publicar un anuncio</Button>}
+        button={
+          <Button className="w-full py-4 sm:w-auto" href="/create">
+            Publicar un anuncio
+          </Button>
+        }
       >
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
           {postings.map(({ id, attributes }) => (
