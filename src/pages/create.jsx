@@ -6,11 +6,9 @@ import { Button } from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
 import { useDropzone } from "react-dropzone";
 import { SimpleLayout } from "@/components/SimpleLayout";
-import Router, { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { newItemFormSchema } from "@/lib/schemas/newItemFormSchema";
-// import createItem from "@/lib/services/createItem";
 import { CREATE_ITEM_MUTATION } from "@/lib/gpl/mutations/createItem";
 import { useMutation } from "@apollo/client";
 import { UPLOAD_FILES_MUTATION } from "@/lib/gpl/mutations/uploadFiles";
@@ -39,7 +37,7 @@ export default function Home() {
       "image/jpeg": [],
       "image/png": [],
     },
-    maxSize: 2000000,
+    maxSize: 10000000,
     maxFiles: MAX_AMOUNT_OF_FILES,
 
     onDrop: (acceptedFiles) => {
