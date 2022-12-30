@@ -182,7 +182,7 @@ export default function Home() {
                 Fotos
               </label>
 
-              <section className="h-96 sm:h-max mt-1 flex flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+              <section className="h-max mt-1 flex flex-col items-center justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                 {/* Gallery */}
                 <section className="mb-8" aria-labelledby="gallery-heading">
                   <h2 id="gallery-heading" className="sr-only">
@@ -193,7 +193,10 @@ export default function Home() {
                     className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
                   >
                     {files.map((file) => (
-                      <li key={file.name} className="relative">
+                      <li
+                        key={file.name}
+                        className="relative w-32 h-32 sm:w-52 sm:h-52"
+                      >
                         <div
                           className={clsx(
                             "flex items-center",
@@ -203,8 +206,7 @@ export default function Home() {
                         >
                           <Image
                             src={file.preview}
-                            width={300}
-                            height={300}
+                            fill
                             alt=""
                             className={clsx(
                               "group-hover:opacity-75",
