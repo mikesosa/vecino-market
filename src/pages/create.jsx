@@ -79,28 +79,33 @@ export default function Home() {
       variables: {
         files,
       },
-    }).then(async ({ data: { multipleUpload } }) => {
-      const ids = multipleUpload.map((file) => file.data.id);
-      await createItem({
-        variables: {
-          ...data,
-          photos: ids,
-        },
+    })
+      .then(async ({ data: { multipleUpload } }) => {
+        const ids = multipleUpload.map((file) => file.data.id);
+        await createItem({
+          variables: {
+            ...data,
+            photos: ids,
+          },
+        })
+          .then(
+            ({
+              data: {
+                createItem: { data },
+              },
+            }) => {
+              window.location.href = `/postings/${data.id}`;
+            }
+          )
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
       })
-        .then(
-          ({
-            data: {
-              createItem: { data },
-            },
-          }) => {
-            window.location.href = `/postings/${data.id}`;
-          }
-        )
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
-    });
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   return (
