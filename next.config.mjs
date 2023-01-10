@@ -7,7 +7,11 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "mdx"],
   reactStrictMode: true,
   images: {
-    domains: ["localhost", "images.unsplash.com", "08ea-161-10-22-99.ngrok.io"],
+    domains: [
+      "localhost",
+      "images.unsplash.com",
+      "clownfish-app-5jmtx.ondigitalocean.app",
+    ],
   },
   experimental: {
     scrollRestoration: true,
