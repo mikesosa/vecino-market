@@ -1,10 +1,9 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import { ThemeContext } from "@/contexts/ThemeContext";
 import Image from "next/image";
 import "keen-slider/keen-slider.min.css";
 import Link from "next/link";
-import { Fragment } from "react";
 import clsx from "clsx";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
@@ -37,6 +36,7 @@ export default function Carousel({
   classes = "",
 }) {
   const { isDarkMode } = useContext(ThemeContext);
+  const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider(
@@ -82,58 +82,84 @@ export default function Carousel({
           });
           slider.on("dragStarted", clearNextTimeout);
           slider.on("animationEnded", nextTimeout);
-          slider.on("updated", nextTimeout);
+          slider.on("updated ", nextTimeout);
         }
       },
     ]
   );
 
+  useEffect(() => {
+    setTimeout(() => {
+      setSlides(images);
+      if (instanceRef) {
+        console.log(instanceRef);
+
+        instanceRef.current.update();
+      }
+    }, 100);
+  });
+
   return (
     <div className="block w-full aspect-w-10 aspect-h-7  overflow-hidden">
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          {images.map(({ src, alt, width, height, href }, index) => {
-            const clickable = (
-              <Link href={href} passHref>
-                <a target="_blank" rel="noopener noreferrer">
-                  <div
-                    className={`keen-slider__slide ${
-                      classes !== ""
-                        ? clsx(classes)
-                        : ` number-slide${index + 1}`
-                    }`}
-                  >
-                    <Image
-                      src={src}
-                      alt={alt}
-                      layout={width ? undefined : "fill"}
-                      objectFit="cover"
-                      width={width}
-                      height={height}
-                    />
-                  </div>
-                </a>
-              </Link>
-            );
-            const nonClickable = (
-              <div
-                className={`keen-slider__slide ${
-                  classes !== "" ? clsx(classes) : ` number-slide${index + 1}`
-                }`}
-              >
-                <Image
-                  src={src}
-                  alt={alt}
-                  layout={width ? undefined : "fill"}
-                  objectFit="cover"
-                  width={width}
-                  height={height}
-                />
-              </div>
-            );
-            return (
-              <Fragment key={index}>{href ? clickable : nonClickable}</Fragment>
-            );
+          {slides.map(({ src, alt, width, height, href, element }, index) => {
+            if (element) {
+              return (
+                <div
+                  key={index}
+                  className={clsx(
+                    classes,
+                    "keen-slider__slide",
+                    `number-slide${index + 1}`
+                  )}
+                >
+                  <div className="object-cover h-52 w-full">{element}</div>
+                </div>
+              );
+            }
+
+            if (!href) {
+              return (
+                <div
+                  key={index}
+                  className={clsx(
+                    classes,
+                    "keen-slider__slide",
+                    `number-slide${index + 1}`
+                  )}
+                >
+                  <Image
+                    src={src}
+                    alt={alt}
+                    className="object-cover h-52 w-full"
+                    width={width}
+                    height={height}
+                  />
+                </div>
+              );
+            }
+
+            <Link href={href} passHref key={index}>
+              <a target="_blank" rel="noopener noreferrer">
+                <div
+                  className={clsx(
+                    classes,
+                    "keen-slider__slide",
+                    `number-slide${index + 1}`
+                  )}
+                >
+                  <Image
+                    src={src}
+                    alt={alt}
+                    layout={width ? undefined : "fill"}
+                    objectFit="cover"
+                    width={width}
+                    height={height}
+                  />
+                </div>
+              </a>
+            </Link>;
           })}
         </div>
 
@@ -146,7 +172,7 @@ export default function Carousel({
               }
               disabled={currentSlide === 0}
             />
-            {currentSlide + 1}/{images.length}
+            {currentSlide + 1}/{slides.length}
             <Arrow
               onClick={(e) =>
                 e.stopPropagation() || instanceRef.current?.next()
