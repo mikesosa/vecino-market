@@ -143,9 +143,12 @@ export default function Carousel({
                   {handleRemoveImage && (
                     <div
                       onClick={() => handleRemoveImage(index)}
-                      className="h-8 w-8 absolute top-0 right-0 m-2 cursor-pointer z-30 bg-white rounded-full flex justify-center items-center"
+                      className="absolute top-0 right-0 m-2 cursor-pointer z-30 bg-white rounded-full flex justify-center items-center"
                     >
-                      <XCircleIcon className="text-gray" />
+                      <XCircleIcon
+                        className="h-8 w-8 text-gray-800"
+                        aria-hidden="true"
+                      />
                     </div>
                   )}
                 </div>

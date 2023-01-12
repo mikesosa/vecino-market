@@ -13,6 +13,8 @@ export default function Item({ item }) {
       return {
         src: process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL + attributes.url,
         alt: "",
+        width: 300,
+        height: 300,
       };
     });
   };
