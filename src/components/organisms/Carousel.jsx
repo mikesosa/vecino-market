@@ -5,7 +5,12 @@ import Image from "next/image";
 import "keen-slider/keen-slider.min.css";
 import Link from "next/link";
 import clsx from "clsx";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  XCircleIcon,
+} from "@heroicons/react/solid";
+import { handleError } from "@apollo/client/link/http/parseAndCheckHttpResponse";
 
 function Arrow(props) {
   const disabled = props.disabled ? " arrow--disabled" : "";
@@ -34,6 +39,7 @@ export default function Carousel({
   autoplay = false,
   loop = false,
   classes = "",
+  handleRemoveImage,
 }) {
   const { isDarkMode } = useContext(ThemeContext);
   const [slides, setSlides] = useState([]);
@@ -92,8 +98,6 @@ export default function Carousel({
     setTimeout(() => {
       setSlides(images);
       if (instanceRef) {
-        console.log(instanceRef);
-
         instanceRef.current.update();
       }
     }, 100);
@@ -136,6 +140,14 @@ export default function Carousel({
                     width={width}
                     height={height}
                   />
+                  {handleRemoveImage && (
+                    <div
+                      onClick={() => handleRemoveImage(index)}
+                      className="h-8 w-8 absolute top-0 right-0 m-2 cursor-pointer z-30 bg-white rounded-full flex justify-center items-center"
+                    >
+                      <XCircleIcon className="" />
+                    </div>
+                  )}
                 </div>
               );
             }

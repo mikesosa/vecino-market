@@ -99,6 +99,7 @@ export default function Home() {
       <SimpleLayout
         title="VittareMarket - Publicar"
         intro="Publica tu producto en VittareMarket. Recuerda hacerlo con responsabilidad y no publicar productos falsos o que no existan. Asi mismo, no publiques productos que no sean tuyos. "
+        buttonPosition="bottom"
         button={
           <Button
             className="w-full py-4 sm:py-2 sm:w-auto"
@@ -117,7 +118,7 @@ export default function Home() {
                 <Input
                   className="w-full py-4 text-xl sm:p-2 sm:text-md"
                   type="text"
-                  // label="Titulo"
+                  disabled={loading}
                   name="title"
                   errors={errors}
                   placeholder="Titulo de la publicacion"
@@ -128,7 +129,7 @@ export default function Home() {
                 <Input
                   className="w-full py-4 text-xl sm:p-2 sm:text-md"
                   type="number"
-                  // label="Precio"
+                  disabled={loading}
                   name="price"
                   errors={errors}
                   placeholder="Precio $"
@@ -136,7 +137,7 @@ export default function Home() {
                   {...register("price")}
                 />
               </div>
-
+              {/* 
               <div className="hidden col-span-3 sm:col-span-2">
                 <Input
                   className="w-full py-4 text-xl sm:p-2 sm:text-md"
@@ -147,13 +148,13 @@ export default function Home() {
                   errors={errors}
                   {...register("short_description")}
                 />
-              </div>
+              </div> */}
             </div>
 
             <div>
               <Input
                 className="w-full py-4 text-xl sm:p-2 sm:text-md"
-                // label="Descripcion"
+                disabled={loading}
                 type="textarea"
                 name="description"
                 placeholder="Descripción (opcional)"

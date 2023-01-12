@@ -49,20 +49,17 @@ const UploadImagesInput = ({ images, setImages }) => {
               strokeLinejoin="round"
             />
           </svg>
-          <div className="flex text-lg sm:text-sm text-gray-600">
+          <div className="flex text-lg justify-center sm:text-sm text-gray-600">
             <label
               htmlFor="image-upload"
               className="relative cursor-pointer rounded-md font-medium text-teal-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-teal-500 focus-within:ring-offset-2 hover:text-teal-500"
             >
               <span>Subir archivos</span>
             </label>
-            {/* <p className="pl-1 text-zinc-600 dark:text-zinc-400">
-            o arrastra y suelta
-          </p> */}
           </div>
-          {/* <p className="text-lg sm:text-xs text-zinc-600 dark:text-zinc-400">
-          PNG, JPG hasta 10MB
-        </p> */}
+          <p className="text-lg sm:text-xs text-zinc-600 dark:text-zinc-400">
+            Max. 4 archivos. Tamaño maximo 10MB
+          </p>
           {fileRejections.length > 0 && (
             <label className="text-red-500 text-xs">
               Maximo de archivos es {MAX_AMOUNT_OF_imageS}
@@ -80,9 +77,12 @@ const UploadImagesInput = ({ images, setImages }) => {
       width: 1,
       height: 1,
     }));
-    slides.push({
-      element: addImagesPlaceholder,
-    });
+
+    if (slides.length < MAX_AMOUNT_OF_FILES) {
+      slides.push({
+        element: addImagesPlaceholder,
+      });
+    }
 
     setLoadedImages(slides);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,6 +97,11 @@ const UploadImagesInput = ({ images, setImages }) => {
           slidesPerView={loadedImages.length > 1 ? 2 : 1}
           showArrows={false}
           showDots={false}
+          handleRemoveImage={(index) => {
+            const newImages = [...images];
+            newImages.splice(index, 1);
+            setImages(newImages);
+          }}
         />
       )}
     </div>

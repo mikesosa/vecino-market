@@ -1,6 +1,12 @@
 import { Container } from "@/components/Container";
 
-export function SimpleLayout({ title, intro, children, button }) {
+export function SimpleLayout({
+  title,
+  intro,
+  children,
+  button,
+  buttonPosition = "top",
+}) {
   return (
     <Container className="mt-16 sm:mt-32">
       <header className="grid grid-cols-4">
@@ -14,13 +20,18 @@ export function SimpleLayout({ title, intro, children, button }) {
             </p>
           )}
         </div>
-        {button && (
+        {button && buttonPosition === "top" && (
           <div className="col-span-4 sm:col-span-1 flex mt-6 items-start justify-center sm:justify-end">
             {button}
           </div>
         )}
       </header>
       <div className="mt-8 sm:mt-20">{children}</div>
+      {button && buttonPosition === "bottom" && (
+        <div className="col-span-4 sm:col-span-1 flex items-start justify-center sm:justify-end">
+          {button}
+        </div>
+      )}
     </Container>
   );
 }
