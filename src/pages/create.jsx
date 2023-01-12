@@ -42,7 +42,7 @@ export default function Home() {
       title: "",
       description: "",
       price: "",
-      short_description: "",
+      phone_number: "",
     },
   });
 
@@ -67,15 +67,15 @@ export default function Home() {
             photos: ids,
           },
         })
-          .then(
-            ({
+          .then((res) => {
+            console.log("res", res);
+            const {
               data: {
                 createItem: { data },
               },
-            }) => {
-              window.location.href = `/postings/${data.id}`;
-            }
-          )
+            } = res;
+            window.location.href = `/postings/${data.id}`;
+          })
           .catch((error) => {
             console.log(error);
             setLoading(false);
@@ -125,7 +125,7 @@ export default function Home() {
                   {...register("title")}
                 />
               </div>
-              <div className="col-span-3 sm:col-span-1">
+              <div className="col-span-3 sm:col-span-2">
                 <Input
                   className="w-full py-4 text-xl sm:p-2 sm:text-md"
                   type="number"
@@ -137,6 +137,23 @@ export default function Home() {
                   {...register("price")}
                 />
               </div>
+              <div className="col-span-3 sm:col-span-1">
+                <div className="relative mt-1 rounded-md shadow-sm">
+                  <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center pl-3">
+                    <span className="text-gray-500 sm:text-sm">+57</span>
+                  </div>
+                  <Input
+                    className="w-full py-4 text-xl pl-16"
+                    type="number"
+                    disabled={loading}
+                    autoComplete="off"
+                    pattern="\d*"
+                    errors={errors}
+                    {...register("phone_number")}
+                  />
+                </div>
+              </div>
+
               {/* 
               <div className="hidden col-span-3 sm:col-span-2">
                 <Input

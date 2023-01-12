@@ -137,6 +137,8 @@ export default function Carousel({
                     src={src}
                     alt={alt}
                     className="object-cover h-52 w-full"
+                    layout={width ? undefined : "fill"}
+                    objectFit="cover"
                     width={width}
                     height={height}
                   />

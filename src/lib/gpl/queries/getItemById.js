@@ -11,6 +11,7 @@ export const GET_ITEM_BY_ID = gql`
           description
           price
           short_description
+          phone_number
           photos {
             data {
               id

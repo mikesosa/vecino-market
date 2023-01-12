@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Card } from "@/components/Card";
+import { Button } from "@/components/atoms/Button";
 import { SimpleLayout } from "@/components/SimpleLayout";
 import Carousel from "@/components/organisms/Carousel";
 import { formatDate } from "@/lib/formatDate";
@@ -13,17 +14,14 @@ export default function Item({ item }) {
       return {
         src: process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL + attributes.url,
         alt: "",
-        width: 300,
-        height: 300,
       };
     });
   };
 
   const breadcrumbs = [
     { id: 1, name: "Se vende", href: "/" },
-    { id: 2, name: item.attributes.title, href: "#" },
+    { id: 2, name: item?.attributes?.title, href: "#" },
   ];
-
   return (
     <>
       <Head>
@@ -111,14 +109,17 @@ export default function Item({ item }) {
               )}
             </div>
           </div>
-
-          <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
-            <section aria-labelledby="options-heading">
-              <h2 id="options-heading" className="sr-only">
-                Product options
-              </h2>
-            </section>
-          </div>
+          {item.attributes.phone_number && (
+            <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
+              <Button
+                className="w-full py-4 sm:py-2 sm:w-auto"
+                href={`https://wa.me/57${item.attributes.phone_number}`}
+                target="_blank"
+              >
+                Contactar al vendedor
+              </Button>
+            </div>
+          )}
         </div>
       </ItemLayout>
     </>

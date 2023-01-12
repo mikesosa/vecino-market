@@ -28,7 +28,7 @@ export function SimpleLayout({
       </header>
       <div className="mt-8 sm:mt-20">{children}</div>
       {button && buttonPosition === "bottom" && (
-        <div className="col-span-4 sm:col-span-1 flex items-start justify-center sm:justify-end">
+        <div className="w-full sm:col-span-1 flex sm:mt-8 items-start justify-center sm">
           {button}
         </div>
       )}
