@@ -16,13 +16,14 @@ const UploadImagesInput = ({ images, setImages }) => {
     maxFiles: MAX_AMOUNT_OF_FILES,
 
     onDrop: (acceptedFiles) => {
-      setImages(
-        acceptedFiles.map((file) =>
+      setImages((prev) => [
+        ...prev,
+        ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
-        )
-      );
+        ),
+      ]);
     },
   });
 
