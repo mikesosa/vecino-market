@@ -14,8 +14,8 @@ export function SimpleLayout({
           <h1 className="text-center sm:text-left text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
             {title}
           </h1>
-          {button && (
-            <p className="hidden sm:block mt-6 text-base text-zinc-600 dark:text-zinc-400">
+          {intro && (
+            <p className="sm:block mt-6 text-center sm:text-left text-base text-zinc-600 dark:text-zinc-400">
               {intro}
             </p>
           )}

@@ -4,6 +4,7 @@ import { Button } from "@/components/atoms/Button";
 import { SimpleLayout } from "@/components/SimpleLayout";
 import Carousel from "@/components/organisms/Carousel";
 import { formatDate } from "@/lib/formatDate";
+import { formatCurrency } from "@/lib/formatCurrency";
 import client from "@/lib/clients/apollo-client";
 import { GET_ITEM_BY_ID } from "@/lib/gpl/queries/getItemById";
 import { ItemLayout } from "@/components/ItemLayout";
@@ -25,7 +26,7 @@ export default function Item({ item }) {
   return (
     <>
       <Head>
-        <title>{item.attributes.title} - VittareMarket</title>
+        <title>{item?.attributes?.title} - VittareMarket</title>
         <meta
           name="description"
           content="All of my long-form thoughts on programming, leadership, product design, and more, collected in chronological order."
@@ -33,9 +34,9 @@ export default function Item({ item }) {
       </Head>
       <ItemLayout
         title="VittareMarket - Se vende"
-        intro='En esta página, encontrarás una gran variedad de artículos que se venden en tu vecindario. Si quieres publicar un anuncio, solo tienes que hacer clic en el botón "Publicar anuncio" y sigue las instrucciones.'
+        // intro="Antes de publicar un anuncio, recuerda que no se pueden borrar y que se borran después de 15 días."
       >
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+        <div className="mx-auto max-w-2xl  px-4 sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           {/* Product details */}
           <div className="lg:max-w-lg lg:self-end">
             <nav aria-label="Breadcrumb">
@@ -79,7 +80,7 @@ export default function Item({ item }) {
 
               <div className="flex items-center">
                 <p className="text-lg text-zinc-600 dark:text-zinc-400 sm:text-xl">
-                  ${item.attributes.price}
+                  {formatCurrency(item.attributes.price)}
                 </p>
               </div>
 

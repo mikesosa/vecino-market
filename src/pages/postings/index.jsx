@@ -22,7 +22,7 @@ export default function PostingsIndex({ postings }) {
       </Head>
       <SimpleLayout
         title="VittareMarket - Anuncios"
-        intro='En esta página, encontrarás una gran variedad de artículos que se venden en tu vecindario. Si quieres publicar un anuncio, solo tienes que hacer clic en el botón "Publicar anuncio" y sigue las instrucciones.'
+        intro="En esta página, encontrarás una gran variedad de artículos que se venden en tu vecindario. Los anuncios se borran después de 15 días."
         button={
           <Button className="w-full py-4 sm:w-auto" href="/create">
             Publicar un anuncio

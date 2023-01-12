@@ -98,7 +98,7 @@ export default function Home() {
       </Head>
       <SimpleLayout
         title="VittareMarket - Publicar"
-        intro="Publica tu producto en VittareMarket. Recuerda hacerlo con responsabilidad y no publicar productos falsos o que no existan. Asi mismo, no publiques productos que no sean tuyos. "
+        intro="Publica tu producto en VittareMarket. Recuerda hacerlo con responsabilidad y no publicar productos falsos o que no existan. Una vez publiques el anuncio no podras editarlo."
         buttonPosition="bottom"
         button={
           <Button
