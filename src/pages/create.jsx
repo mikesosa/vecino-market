@@ -132,39 +132,23 @@ export default function Home() {
                   errors={errors}
                   placeholder="Precio $"
                   pattern="\d*"
-                  prefix={"$"}
+                  prefix={"$ "}
                   {...register("price")}
                 />
               </div>
               <div className="col-span-3 sm:col-span-1">
-                <div className="relative mt-1 rounded-md shadow-sm">
-                  <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center pl-3">
-                    <span className="text-gray-500 sm:text-sm">+57</span>
-                  </div>
-                  <Input
-                    className="w-full py-4 text-xl pl-16"
-                    type="number"
-                    disabled={loading}
-                    autoComplete="off"
-                    pattern="\d*"
-                    errors={errors}
-                    {...register("phone_number")}
-                  />
-                </div>
-              </div>
-
-              {/* 
-              <div className="hidden col-span-3 sm:col-span-2">
                 <Input
-                  className="w-full py-4 text-xl sm:p-2 sm:text-md"
-                  label="Descripcion corta"
-                  type="text"
-                  name="short_description"
-                  placeholder="Ej: Vendemos casa en el centro de la ciudad."
+                  className="w-full py-4 text-xl"
+                  type="phone"
+                  prefix="+57"
+                  placeholder="Numero de contacto"
+                  disabled={loading}
+                  autoComplete="off"
+                  pattern="\d*"
                   errors={errors}
-                  {...register("short_description")}
+                  {...register("phone_number")}
                 />
-              </div> */}
+              </div>
             </div>
 
             <div>

@@ -52,7 +52,48 @@ const Input = React.forwardRef(
                 props.onChange(newEvent);
               }}
             />
+          ) : props.type === "phone" ? (
+            <NumberFormat
+              getInputRef={ref}
+              className={className}
+              placeholder={props.placeholder}
+              format="+57 (###) ###-####"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              onValueChange={({ value }) => {
+                const newEvent = {
+                  target: {
+                    name: props.name,
+                    value: value,
+                  },
+                };
+
+                console.log(newEvent);
+
+                props.onChange(newEvent);
+              }}
+            />
           ) : (
+            // <NumberFormat
+            //   getInputRef={ref}
+            //   className={className}
+            //   placeholder={props.placeholder}
+            //   thousandSeparator="."
+            //   decimalSeparator=","
+            //   prefix={props.prefix}
+            //   pattern="[0-9]*"
+            //   inputMode="numeric"
+            //   onValueChange={({ floatValue }) => {
+            //     const newEvent = {
+            //       target: {
+            //         name: props.name,
+            //         value: floatValue,
+            //       },
+            //     };
+
+            //     props.onChange(newEvent);
+            //   }}
+            // />
             <input ref={ref} className={className} {...props} />
           )}
           {errorMessage && (
