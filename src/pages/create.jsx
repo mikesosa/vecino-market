@@ -128,12 +128,11 @@ export default function Home() {
               <div className="col-span-3 sm:col-span-2">
                 <Input
                   className="w-full py-4 text-xl sm:p-2 sm:text-md"
-                  type="number"
-                  disabled={loading}
-                  name="price"
+                  type="currency"
                   errors={errors}
                   placeholder="Precio $"
                   pattern="\d*"
+                  prefix={"$"}
                   {...register("price")}
                 />
               </div>

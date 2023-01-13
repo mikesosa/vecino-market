@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import NumberFormat from "react-number-format";
 
 const variantStyles = {
   primary:
@@ -30,6 +31,25 @@ const Input = React.forwardRef(
         <div className="mt-1 flex rounded-md shadow-sm flex-col">
           {props.type === "textarea" ? (
             <textarea ref={ref} className={className} {...props} />
+          ) : props.type === "currency" ? (
+            <NumberFormat
+              getInputRef={ref}
+              className={className}
+              placeholder={props.placeholder}
+              thousandSeparator="."
+              decimalSeparator=","
+              prefix={props.prefix}
+              onValueChange={({ floatValue }) => {
+                const newEvent = {
+                  target: {
+                    name: props.name,
+                    value: floatValue,
+                  },
+                };
+
+                props.onChange(newEvent);
+              }}
+            />
           ) : (
             <input ref={ref} className={className} {...props} />
           )}

@@ -7,6 +7,7 @@ export const newItemFormSchema = yup.object().shape({
     .required("El título es requerido"),
   price: yup
     .number()
+    .typeError("Precio inválido")
     .max(100000000, "El precio es muy alto")
     .required("El precio es requerido"),
   phone_number: yup
