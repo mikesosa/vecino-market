@@ -10,6 +10,7 @@ import { CREATE_ITEM_MUTATION } from "@/lib/gpl/mutations/createItem";
 import { useMutation } from "@apollo/client";
 import { UPLOAD_FILES_MUTATION } from "@/lib/gpl/mutations/uploadFiles";
 import UploadImagesInput from "@/components/organisms/UploadImagesInput";
+import Spinner from "@/components/atoms/Spinner";
 
 export default function Home() {
   const [
@@ -106,7 +107,7 @@ export default function Home() {
             onClick={handleSubmitForm(handleSubmit)}
             disabled={loading}
           >
-            {loading ? "Publicando..." : "Publicar"}
+            {loading ? <Spinner /> : "Publicar"}
           </Button>
         }
       >
