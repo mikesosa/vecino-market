@@ -39,6 +39,8 @@ const Input = React.forwardRef(
               thousandSeparator="."
               decimalSeparator=","
               prefix={props.prefix}
+              pattern="[0-9]*"
+              inputMode="numeric"
               onValueChange={({ floatValue }) => {
                 const newEvent = {
                   target: {
