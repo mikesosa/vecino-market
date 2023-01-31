@@ -11,6 +11,7 @@ const nextConfig = {
       "localhost",
       "images.unsplash.com",
       "clownfish-app-5jmtx.ondigitalocean.app",
+      "clownfish-app-5jmtx.ondigitalocean.apphttps",
     ],
   },
   experimental: {

@@ -69,7 +69,6 @@ export default function Home() {
           },
         })
           .then((res) => {
-            console.log("res", res);
             const {
               data: {
                 createItem: { data },
@@ -102,13 +101,20 @@ export default function Home() {
         intro="Publica tu producto en VittareMarket. Recuerda hacerlo con responsabilidad y no publicar productos falsos o que no existan. Una vez publiques el anuncio no podras editarlo."
         buttonPosition="bottom"
         button={
-          <Button
-            className="w-full py-4 sm:py-2 sm:w-auto"
-            onClick={handleSubmitForm(handleSubmit)}
-            disabled={loading}
-          >
-            {loading ? <Spinner /> : "Publicar"}
-          </Button>
+          <>
+            <Button
+              className="w-full py-4 sm:py-2 sm:w-auto"
+              onClick={handleSubmitForm(handleSubmit)}
+              disabled={loading}
+            >
+              {loading ? <Spinner /> : "Publicar"}
+            </Button>
+            {error && (
+              <div className="text-red-500 text-center mt-4">
+                {error.message}
+              </div>
+            )}
+          </>
         }
       >
         <div className="rounded-2xl sm:border border-zinc-300 p-0 sm:p-6 dark:border-zinc-700/50">

@@ -12,7 +12,7 @@ const UploadImagesInput = ({ images, setImages }) => {
       "image/jpeg": [],
       "image/png": [],
     },
-    maxSize: 10000000,
+    maxSize: 10000000, // 10MB
     maxFiles: MAX_AMOUNT_OF_FILES,
 
     onDrop: (acceptedFiles) => {
