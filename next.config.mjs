@@ -12,6 +12,7 @@ const nextConfig = {
       "images.unsplash.com",
       "clownfish-app-5jmtx.ondigitalocean.app",
       "clownfish-app-5jmtx.ondigitalocean.apphttps",
+      "vecino-market-strapi-s3-bucket.s3.amazonaws.com",
     ],
   },
   experimental: {

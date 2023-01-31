@@ -13,7 +13,7 @@ export default function Item({ item }) {
   const getPhotos = (photos) => {
     return photos.map(({ attributes }) => {
       return {
-        src: process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL + attributes.url,
+        src: attributes.url,
         alt: "",
       };
     });

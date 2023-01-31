@@ -68,8 +68,6 @@ const Input = React.forwardRef(
                   },
                 };
 
-                console.log(newEvent);
-
                 props.onChange(newEvent);
               }}
             />

@@ -41,7 +41,7 @@ export default function PostingsIndex({ postings }) {
                     width={500}
                     height={500}
                     src={
-                      process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL +
+                      // process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL +
                       attributes.photos.data[0].attributes.url
                     }
                     alt={attributes.title}
