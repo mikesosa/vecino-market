@@ -71,6 +71,27 @@ const Input = React.forwardRef(
                 props.onChange(newEvent);
               }}
             />
+          ) : props.type === "code" ? (
+            <NumberFormat
+              getInputRef={ref}
+              className={className}
+              placeholder={props.placeholder}
+              format="#-#-#-#-#-#"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              allowLeadingZeros
+              onValueChange={({ value }) => {
+                console.log("value", value);
+                const newEvent = {
+                  target: {
+                    name: props.name,
+                    value: value,
+                  },
+                };
+
+                props.onChange(newEvent);
+              }}
+            />
           ) : (
             // <NumberFormat
             //   getInputRef={ref}

@@ -11,6 +11,8 @@ import { useMutation } from "@apollo/client";
 import { UPLOAD_FILES_MUTATION } from "@/lib/gpl/mutations/uploadFiles";
 import UploadImagesInput from "@/components/organisms/UploadImagesInput";
 import Spinner from "@/components/atoms/Spinner";
+import marketClient from "@/lib/clients/marketClient";
+import useVerificationModal from "@/hooks/useVerificationModal";
 
 export default function Home() {
   const [
@@ -28,6 +30,8 @@ export default function Home() {
     // },
   ] = useMutation(UPLOAD_FILES_MUTATION);
   const [loading, setLoading] = useState(creatingItem ?? false);
+  const { isVerified, showVerificationModal, verificationModal } =
+    useVerificationModal();
   const [files, setFiles] = useState([]);
 
   const {
@@ -53,8 +57,7 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = async (data) => {
-    setLoading(true);
+  const onSubmit = async (data) => {
     await uploadFiles({
       variables: {
         files,
@@ -80,6 +83,30 @@ export default function Home() {
             console.log(error);
             setLoading(false);
           });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    console.log("isVerified", isVerified);
+    if (isVerified.isVerified) {
+      onSubmit(isVerified.payload);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVerified]);
+
+  const handleSubmit = async (data) => {
+    setLoading(true);
+    // 1 - Send verification code to phone number
+    await marketClient
+      .post("/api/send-code", {
+        phone: data.phone_number,
+      })
+      .then(({ data: response }) => {
+        showVerificationModal(response.to, data);
       })
       .catch((error) => {
         console.log(error);
@@ -148,7 +175,7 @@ export default function Home() {
                   className="w-full py-4 text-xl"
                   type="phone"
                   prefix="+57"
-                  placeholder="Numero de contacto"
+                  placeholder="Numero de whatsapp"
                   disabled={loading}
                   autoComplete="off"
                   pattern="\d*"
@@ -172,6 +199,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {verificationModal}
       </SimpleLayout>
     </>
   );
