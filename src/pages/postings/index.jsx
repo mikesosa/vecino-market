@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import client from "@/lib/clients/apollo-client";
 import { GET_ITEMS } from "@/lib/gpl/queries/getItems";
 import { formatCurrency } from "@/lib/formatCurrency";
+import { CheckCircleIcon } from "@heroicons/react/solid";
 
 export default function PostingsIndex({ postings }) {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function PostingsIndex({ postings }) {
         <title>Anuncios - VittareMarket</title>
         <meta
           name="description"
-          content="All of my long-form thoughts on programming, leadership, product design, and more, collected in chronological order."
+          content="All of my long-form thoughts on programming, leadership, post design, and more, collected in chronological post."
         />
       </Head>
       <SimpleLayout
@@ -29,49 +30,78 @@ export default function PostingsIndex({ postings }) {
           </Button>
         }
       >
-        <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
-          {postings.map(({ id, attributes }) => (
-            <div
-              key={id}
-              className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
+        <div className="mx-auto max-w-7xl sm:px-2 lg:px-8">
+          <div className="mx-auto max-w-2xl space-y-8 sm:px-4 lg:max-w-4xl lg:px-0">
+            <h4 className="sr-only">Items</h4>
+            <ul
+              role="list"
+              className="divide-y divide-gray-200 dark:divide-zinc-600  "
             >
-              <div className="aspect-w-3 aspect-h-4 bg-gray-200 group-hover:opacity-75 sm:aspect-none sm:h-96">
-                {attributes.photos.data[0]?.attributes.url && (
-                  <Image
-                    width={500}
-                    height={500}
-                    src={
-                      // process.env.NEXT_PUBLIC_VECINO_MARKET_API_URL +
-                      attributes.photos.data[0].attributes.url
-                    }
-                    alt={attributes.title}
-                    className="h-full w-full object-cover object-center sm:h-full sm:w-full"
-                  />
-                )}
-              </div>
-              <div className="flex flex-1 flex-col space-y-2 p-4">
-                <h3 className="text-sm font-medium text-gray-900">
-                  <a href={router.asPath + "/" + id}>
-                    <span aria-hidden="true" className="absolute inset-0" />
-                    {attributes.title}
-                  </a>
-                </h3>
-                <p className="text-sm text-gray-500">
-                  {attributes.description.substring(0, 100)}...
-                </p>
-                <div className="flex flex-1 flex-col justify-end">
-                  <p className="text-base font-medium text-gray-900 text-right">
-                    {attributes.price
-                      ? formatCurrency(attributes.price)
-                      : "Gratis"}
-                  </p>
-                  <p className="mt-2 text-sm italic text-gray-500 text-left">
-                    Publicado hace {formatFromDistance(attributes.createdAt)}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+              {postings.map(({ id, attributes }) => (
+                <li key={id} className="p-4 sm:p-6">
+                  <div className="flex items-center sm:items-start">
+                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-gray-200 sm:h-40 sm:w-40">
+                      {attributes.photos.data[0]?.attributes.url && (
+                        <Image
+                          width={500}
+                          height={500}
+                          priority
+                          src={attributes.photos.data[0].attributes.url}
+                          alt={attributes.title}
+                          className="h-full w-full object-cover object-center"
+                        />
+                      )}
+                    </div>
+                    <div className="ml-6 flex-1 text-sm">
+                      <div className="font-medium text-gray-900 dark:text-zinc-100 sm:flex sm:justify-between">
+                        <h5>{attributes.title}</h5>
+                        <p className="mt-2 sm:mt-0">
+                          {attributes.price
+                            ? formatCurrency(attributes.price)
+                            : "Gratis"}
+                        </p>
+                      </div>
+                      <p className="hidden text-gray-500 dark:text-zinc-400 sm:mt-2 sm:block">
+                        {attributes.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 sm:flex sm:justify-between">
+                    <div className="flex items-center">
+                      <CheckCircleIcon
+                        className="h-5 w-5 text-green-500"
+                        aria-hidden="true"
+                      />
+                      <p className="ml-2 text-sm font-medium text-gray-500 dark:text-zinc-400">
+                        Publicado hace{" "}
+                        {formatFromDistance(attributes.createdAt)}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 flex items-center space-x-4 divide-x divide-gray-200 dark:divide-zinc-600 border-t border-gray-200 dark:border-zinc-600 pt-4 text-sm font-medium sm:mt-0 sm:ml-4 sm:border-none sm:pt-0">
+                      <div className="flex flex-1 justify-center">
+                        <a
+                          href={`https://wa.me/57${attributes.phone_number}`}
+                          className="whitespace-nowrap text-teal-600 hover:text-teal-500"
+                        >
+                          Contactar
+                        </a>
+                      </div>
+                      <div className="flex flex-1 justify-center pl-4">
+                        <a
+                          href={router.asPath + "/" + id}
+                          className="whitespace-nowrap text-teal-600 hover:text-teal-500"
+                        >
+                          Ver más
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </SimpleLayout>
     </>
