@@ -81,7 +81,7 @@ export default function useVerificationModal() {
       </div>
       <div className="mt-5 sm:mt-6 px-8">
         <Input
-          className="w-full py-4 text-xl sm:p-2 sm:text-md text-center"
+          className="w-full py-4 text-xl sm:p-2 sm:text-md text-center dark:text-black"
           type="code"
           errors={errors}
           placeholder="Ingresa el código"
