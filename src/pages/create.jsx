@@ -13,6 +13,7 @@ import UploadImagesInput from "@/components/organisms/UploadImagesInput";
 import Spinner from "@/components/atoms/Spinner";
 import marketClient from "@/lib/clients/marketClient";
 import useVerificationModal from "@/hooks/useVerificationModal";
+import ProgressBar from "@/components/atoms/ProgressBar";
 
 export default function Home() {
   const [
@@ -30,6 +31,7 @@ export default function Home() {
     // },
   ] = useMutation(UPLOAD_FILES_MUTATION);
   const [loading, setLoading] = useState(creatingItem ?? false);
+  const [progress, setProgress] = useState(0);
   const { isVerified, showVerificationModal, verificationModal } =
     useVerificationModal();
   const [files, setFiles] = useState([]);
@@ -61,6 +63,17 @@ export default function Home() {
     await uploadFiles({
       variables: {
         files,
+      },
+      context: {
+        fetchOptions: {
+          useUpload: true,
+          onProgress: (ev) => {
+            setProgress(ev.loaded / ev.total);
+          },
+          onAbortPossible: (abortHandler) => {
+            abort = abortHandler;
+          },
+        },
       },
     })
       .then(async ({ data: { multipleUpload } }) => {
@@ -199,6 +212,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+        {loading && (
+          <div className="mb-4">
+            <ProgressBar progress={progress} />
+          </div>
+        )}
         {verificationModal}
       </SimpleLayout>
     </>
