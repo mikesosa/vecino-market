@@ -165,7 +165,7 @@ export default function Home() {
                   disabled={loading}
                   name="title"
                   errors={errors}
-                  placeholder="Titulo de la publicacion"
+                  placeholder="Titulo de la publicación"
                   {...register("title")}
                 />
               </div>
@@ -185,7 +185,7 @@ export default function Home() {
                   className="w-full py-4 text-xl"
                   type="phone"
                   prefix="+57"
-                  placeholder="Numero de whatsapp"
+                  placeholder="Número de whatsapp"
                   disabled={loading}
                   autoComplete="off"
                   pattern="\d*"

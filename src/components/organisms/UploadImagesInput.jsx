@@ -59,11 +59,11 @@ const UploadImagesInput = ({ images, setImages }) => {
             </label>
           </div>
           <p className="text-lg sm:text-xs text-zinc-600 dark:text-zinc-400">
-            Max. 4 archivos. Tamaño maximo 10MB
+            Max. 4 archivos. Tamaño Máximo 10MB
           </p>
           {fileRejections.length > 0 && (
             <label className="text-red-500 text-xs">
-              Maximo de archivos es {MAX_AMOUNT_OF_FILES}
+              Máximo de archivos es {MAX_AMOUNT_OF_FILES}
             </label>
           )}
         </div>
