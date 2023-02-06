@@ -4,8 +4,9 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
 import { Container } from "@/components/Container";
-import logoBlack from "@/images/favicon-black.svg";
-import logoWhite from "@/images/favicon-white.svg";
+
+import logo from "@/images/vittare-market-logo.png";
+
 import { Fragment, useEffect, useRef } from "react";
 import { useContext } from "react";
 import { ThemeContext } from "@/contexts/ThemeContext";
@@ -241,8 +242,8 @@ function Avatar({ large = false, className, ...props }) {
       {...props}
     >
       <Image
-        src={isDarkMode ? logoWhite : logoBlack}
-        alt=""
+        src={logo}
+        alt="logo vittare market"
         sizes={large ? "6rem" : "2.25rem"}
         className={clsx(
           "rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",
