@@ -53,6 +53,12 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (creatingPostError || uploadingImagesError) {
+      setLoading(false);
+    }
+  }, [creatingPostError, uploadingImagesError]);
+
   const onSubmit = async (data) => {
     const promises = files.map((file) => {
       return uploadFiles({
@@ -132,9 +138,9 @@ export default function Home() {
         intro="Publica tu producto en VittareMarket. Recuerda hacerlo con responsabilidad y no publicar productos falsos o que no existan. Una vez publiques el anuncio no podras editarlo."
         buttonPosition="bottom"
         button={
-          <>
+          <div className="w-full text-center">
             <Button
-              className="w-full py-4 sm:py-2 sm:w-auto"
+              className="w-full py-4 sm:w-1/4"
               onClick={handleSubmitForm(handleSubmit)}
               disabled={loading}
             >
@@ -145,7 +151,7 @@ export default function Home() {
                 {creatingPostError?.message || uploadingImagesError?.message}
               </div>
             )}
-          </>
+          </div>
         }
       >
         <div className="rounded-2xl sm:border border-zinc-300 p-0 sm:p-6 dark:border-zinc-700/50">
