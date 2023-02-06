@@ -9,6 +9,7 @@ export const GET_ITEMS = gql`
           createdAt
           title
           description
+          phone_number
           price
           short_description
           photos {

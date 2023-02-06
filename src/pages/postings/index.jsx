@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import { SimpleLayout } from "@/components/SimpleLayout";
 import Image from "next/image";
 import { formatFromDistance } from "@/lib/formatDate";
@@ -81,12 +82,13 @@ export default function PostingsIndex({ postings }) {
 
                     <div className="mt-4 flex items-center space-x-4 divide-x divide-gray-200 dark:divide-zinc-600 border-t border-gray-200 dark:border-zinc-600 pt-4 text-sm font-medium sm:mt-0 sm:ml-4 sm:border-none sm:pt-0">
                       <div className="flex flex-1 justify-center">
-                        <a
-                          href={`https://wa.me/57${attributes.phone_number}`}
+                        <Link
+                          target="_blank"
+                          href={`https://wa.me/57${attributes.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/items/${id}`}
                           className="whitespace-nowrap text-teal-600 hover:text-teal-500"
                         >
                           Contactar
-                        </a>
+                        </Link>
                       </div>
                       <div className="flex flex-1 justify-center pl-4">
                         <a

@@ -1,11 +1,9 @@
 import Head from "next/head";
-import { Card } from "@/components/Card";
 import { Button } from "@/components/atoms/Button";
-import { SimpleLayout } from "@/components/SimpleLayout";
 import Carousel from "@/components/organisms/Carousel";
-import { formatDate } from "@/lib/formatDate";
 import { formatCurrency } from "@/lib/formatCurrency";
 import client from "@/lib/clients/apollo-client";
+import { GET_ITEMS } from "@/lib/gpl/queries/getItems";
 import { GET_ITEM_BY_ID } from "@/lib/gpl/queries/getItemById";
 import { ItemLayout } from "@/components/ItemLayout";
 
@@ -125,20 +123,43 @@ export default function Item({ item }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { params: id } = context;
+export async function getStaticPaths() {
+  // Define a list of paths to be statically generated.
   const {
-    data: { item },
+    data: { items },
   } = await client.query({
-    query: GET_ITEM_BY_ID,
-    variables: {
-      id: id.itemId,
-    },
+    query: GET_ITEMS,
+    variables: {},
   });
+  const paths = items.data.map(({ id }) => ({
+    params: {
+      itemId: id,
+    },
+  }));
 
   return {
-    props: {
-      item: item.data,
-    },
+    paths,
+    fallback: true, // false or 'blocking'
   };
+}
+
+export async function getStaticProps({ params }) {
+  const { itemId } = params;
+  try {
+    const {
+      data: { item },
+    } = await client.query({
+      query: GET_ITEM_BY_ID,
+      variables: {
+        id: itemId,
+      },
+    });
+    return {
+      props: {
+        item: item.data,
+      },
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
 }
