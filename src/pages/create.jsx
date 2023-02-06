@@ -14,33 +14,27 @@ import Spinner from "@/components/atoms/Spinner";
 import marketClient from "@/lib/clients/marketClient";
 import useVerificationModal from "@/hooks/useVerificationModal";
 import ProgressBar from "@/components/atoms/ProgressBar";
+import promiseProgress from "@/lib/promiseProgress";
 
 export default function Home() {
-  const [
-    createItem,
-    {
-      loading: { creatingItem },
-      error,
-    },
-  ] = useMutation(CREATE_ITEM_MUTATION);
+  const [createItem, { loading: creatingPost, error: creatingPostError }] =
+    useMutation(CREATE_ITEM_MUTATION);
   const [
     uploadFiles,
-    // {
-    //   loading: { creatingItem },
-    //   error,
-    // },
+    { loading: uploadingImages, error: uploadingImagesError },
   ] = useMutation(UPLOAD_FILES_MUTATION);
-  const [loading, setLoading] = useState(creatingItem ?? false);
-  const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState({
+    percentage: 0,
+    uploaded: 0,
+    totalAmount: 0,
+  });
   const { isVerified, showVerificationModal, verificationModal } =
     useVerificationModal();
   const [files, setFiles] = useState([]);
 
   const {
-    // control,
     register,
-    // setValue,
-    // watch,
     handleSubmit: handleSubmitForm,
     formState: { errors },
   } = useForm({
@@ -60,51 +54,48 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data) => {
-    await uploadFiles({
-      variables: {
-        files,
-      },
-      context: {
-        fetchOptions: {
-          useUpload: true,
-          onProgress: (ev) => {
-            setProgress(ev.loaded / ev.total);
-          },
-          onAbortPossible: (abortHandler) => {
-            abort = abortHandler;
-          },
+    const promises = files.map((file) => {
+      return uploadFiles({
+        variables: {
+          file,
         },
-      },
+      });
+    });
+
+    promiseProgress(promises, (p, uploaded) => {
+      setProgress({
+        percentage: p,
+        uploaded: uploaded,
+        totalAmount: promises.length,
+      });
     })
-      .then(async ({ data: { multipleUpload } }) => {
-        const ids = multipleUpload.map((file) => file.data.id);
-        await createItem({
+      .then((multipleUpload) => {
+        const ids = multipleUpload.map(
+          ({ data: { upload } }) => upload.data.id
+        );
+        return ids;
+      })
+      .then(async (imagesIds) => {
+        console.log("imagesIds", imagesIds);
+        return await createItem({
           variables: {
             ...data,
-            photos: ids,
+            photos: imagesIds,
           },
-        })
-          .then((res) => {
-            const {
-              data: {
-                createItem: { data },
-              },
-            } = res;
-            window.location.href = `/postings/${data.id}`;
-          })
-          .catch((error) => {
-            console.log(error);
-            setLoading(false);
-          });
+        });
       })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
+      .then(
+        ({
+          data: {
+            createItem: { data },
+          },
+        }) => {
+          window.location.href = `/postings/${data.id}`;
+        }
+      );
   };
 
   useEffect(() => {
-    console.log("isVerified", isVerified);
     if (isVerified.isVerified) {
       onSubmit(isVerified.payload);
     }
@@ -149,9 +140,9 @@ export default function Home() {
             >
               {loading ? <Spinner /> : "Publicar"}
             </Button>
-            {error && (
+            {(creatingPostError || uploadingImagesError) && (
               <div className="text-red-500 text-center mt-4">
-                {error.message}
+                {creatingPostError?.message || uploadingImagesError?.message}
               </div>
             )}
           </>
@@ -212,11 +203,17 @@ export default function Home() {
             </div>
           </div>
         </div>
-        {loading && (
+        {(uploadingImages || creatingPost || loading) && (
           <div className="mb-4">
-            <ProgressBar progress={progress} />
+            <p className="text-center text-sm dark:text-white my-2">
+              {uploadingImages
+                ? `Subiendo ${progress.uploaded} de ${progress.totalAmount} imágenes`
+                : "Creando anuncio..."}
+            </p>
+            <ProgressBar progress={progress.percentage} />
           </div>
         )}
+
         {verificationModal}
       </SimpleLayout>
     </>

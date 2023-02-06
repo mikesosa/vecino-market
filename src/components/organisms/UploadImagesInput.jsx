@@ -63,7 +63,7 @@ const UploadImagesInput = ({ images, setImages }) => {
           </p>
           {fileRejections.length > 0 && (
             <label className="text-red-500 text-xs">
-              Maximo de archivos es {MAX_AMOUNT_OF_imageS}
+              Maximo de archivos es {MAX_AMOUNT_OF_FILES}
             </label>
           )}
         </div>

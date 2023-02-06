@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
 
 export const UPLOAD_FILES_MUTATION = gql`
-  mutation multipleUpload(
-    $files: [Upload!]! # $photos: Upload!
+  mutation (
+    $file: Upload! # $photos: Upload!
   ) {
-    multipleUpload(files: $files) {
+    upload(file: $file) {
       data {
         id
       }
