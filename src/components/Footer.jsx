@@ -27,8 +27,14 @@ export function Footer() {
                 {/* <NavLink href="/uses">Uses</NavLink> */}
               </div>
               <p className="text-sm text-zinc-400 dark:text-zinc-500">
-                &copy; {new Date().getFullYear()} VittareMarket. All rights
-                reserved.
+                &copy; {new Date().getFullYear()} dudas y/o sugerencias?{" "}
+                <Link
+                  className="w-full py-4 sm:py-2 sm:w-auto text-teal-500 hover:text-teal-400 transition"
+                  href={`https://wa.me/573124882180?text=Hola,%20me%20gustaría%20saber%20más%20sobre%20VittareMarket`}
+                  target="_blank"
+                >
+                  escribenos
+                </Link>
               </p>
             </div>
           </Container.Inner>

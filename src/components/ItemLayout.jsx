@@ -11,7 +11,11 @@ export function ItemLayout({ title, intro, children }) {
           {intro}
         </p>
       </header> */}
-      <div className="mt-16 sm:mt-20">{children}</div>
+      <div className="mt-16 sm:mt-20">
+        <div className="mx-auto max-w-2xl sm:py-24 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+          {children}
+        </div>
+      </div>
     </Container>
   );
 }

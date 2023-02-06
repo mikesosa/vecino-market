@@ -17,6 +17,8 @@ export const GET_ITEM_BY_ID = gql`
               id
               attributes {
                 url
+                width
+                height
               }
             }
           }

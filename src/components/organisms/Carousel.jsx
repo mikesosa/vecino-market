@@ -134,11 +134,9 @@ export default function Carousel({
                   )}
                 >
                   <Image
+                    priority
                     src={src}
                     alt={alt}
-                    className="object-cover h-52 w-full"
-                    layout={width ? undefined : "fill"}
-                    objectFit="cover"
                     width={width}
                     height={height}
                   />
@@ -169,8 +167,10 @@ export default function Carousel({
                   <Image
                     src={src}
                     alt={alt}
-                    layout={width ? undefined : "fill"}
-                    objectFit="cover"
+                    priority
+                    className="object-cover h-52 w-full"
+                    // layout={width ? undefined : "fill"}
+                    // objectFit="cover"
                     width={width}
                     height={height}
                   />

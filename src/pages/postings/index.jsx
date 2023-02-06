@@ -15,10 +15,10 @@ export default function PostingsIndex({ postings }) {
   return (
     <>
       <Head>
-        <title>Anuncios - VittareMarket</title>
+        <title>Anuncios de Venta, Compra y Servicios en Vittare Market</title>
         <meta
           name="description"
-          content="All of my long-form thoughts on programming, leadership, post design, and more, collected in chronological post."
+          content="Encuentra lo que necesitas en Vittare Market. Anuncios de productos, servicios y más en un solo lugar."
         />
       </Head>
       <SimpleLayout

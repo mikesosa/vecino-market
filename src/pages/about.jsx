@@ -47,13 +47,10 @@ export default function About() {
   return (
     <>
       <Head>
-        <title>
-          Acerca de - Vecino Market - Compra y vende artículos de segunda mano
-          con tus vecinos
-        </title>
+        <title>Anuncios de Venta, Compra y Servicios en Vittare Market</title>
         <meta
           name="description"
-          content="I’m VittareMarket. I live in New York City, where I design the future."
+          content="Encuentra lo que necesitas en Vittare Market. Anuncios de productos, servicios y más en un solo lugar."
         />
       </Head>
       <Container className="mt-16 sm:mt-32">
@@ -77,24 +74,27 @@ export default function About() {
           </div>
           <div className="lg:order-first lg:row-span-2">
             <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-              VittareMarket - Compra y vende artículos de segunda mano con tus
-              vecinos
+              VittareMarket - Anuncios de Venta, Compra y Servicios
             </h1>
             <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
               <p>
-                ¿Quieres encontrar una nueva casa para tus cosas usadas o
-                encontrar un buen trato en tu vecindario? VittareMarket es la
-                aplicación perfecta para ti. Con nuestra plataforma fácil de
-                usar, puedes publicar anuncios y hacer ofertas en un abrir y
-                cerrar de ojos. ¡Utiliza VittareMarket hoy y empieza a ahorrar
-                dinero y a reciclar tus cosas!
+                Bienvenidos a Vittare Market, la plataforma en línea donde
+                puedes encontrar todo lo que necesitas en un solo lugar. Desde
+                productos hasta servicios, nuestra comunidad de usuarios es la
+                fuente perfecta para encontrar lo que buscas.
               </p>
               <p>
-                Con nuestra plataforma fácil de usar, puedes publicar anuncios y
-                hacer ofertas en un abrir y cerrar de ojos. Además, al utilizar
-                VittareMarket, estarás apoyando a tu comunidad local y
-                reduciendo tu huella de carbono al reciclar en lugar de comprar
-                cosas nuevas.
+                Nuestro objetivo es brindar una experiencia de compra y venta
+                simple y eficiente, y es por eso que nos esforzamos por ofrecer
+                una plataforma segura y fácil de usar. Con Vittare Market,
+                puedes publicar anuncios, buscar productos y servicios, y
+                conectarte con otros usuarios de manera rápida y sencilla.
+              </p>
+              <p>
+                Nos enorgullece formar parte de una comunidad activa y diversa,
+                y estamos comprometidos a mejorar constantemente nuestros
+                servicios para brindar la mejor experiencia posible a nuestros
+                usuarios.
               </p>
             </div>
           </div>
