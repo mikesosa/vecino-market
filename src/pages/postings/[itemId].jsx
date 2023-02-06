@@ -24,10 +24,11 @@ export default function Item({ item }) {
     { id: 2, name: item?.attributes?.title, href: "#" },
   ];
 
+  const title = `${item?.attributes?.title} - VittareMarket`;
   return (
     <>
       <Head>
-        <title>{item?.attributes?.title} - VittareMarket</title>
+        <title>{title}</title>
         <meta name="description" content={item?.attributes?.description} />
       </Head>
       <ItemLayout
@@ -77,13 +78,13 @@ export default function Item({ item }) {
 
             <div className="flex items-center">
               <p className="text-lg text-zinc-600 dark:text-zinc-400 sm:text-xl">
-                {formatCurrency(item.attributes.price)}
+                {formatCurrency(item?.attributes?.price)}
               </p>
             </div>
 
             <div className="mt-4 space-y-6">
               <p className="text-base text-zinc-600 dark:text-zinc-400">
-                {item.attributes.description}
+                {item?.attributes?.description}
               </p>
             </div>
           </section>
@@ -92,9 +93,9 @@ export default function Item({ item }) {
         {/* Product image */}
         <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
           <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg">
-            {item.attributes.photos.data.length > 0 ? (
+            {item?.attributes?.photos.data.length > 0 ? (
               <Carousel
-                images={getPhotos(item.attributes.photos.data)}
+                images={getPhotos(item?.attributes?.photos.data)}
                 classes="relative h-96 flex items-center justify-center"
                 loop
                 showArrows
@@ -107,11 +108,11 @@ export default function Item({ item }) {
             )}
           </div>
         </div>
-        {item.attributes.phone_number && (
+        {item?.attributes?.phone_number && (
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <Button
               className="w-full py-4 sm:py-2 sm:w-auto"
-              href={`https://wa.me/57${item.attributes.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/postings/${item.id}`}
+              href={`https://wa.me/57${item?.attributes?.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/postings/${item.id}`}
               target="_blank"
             >
               Contactar al vendedor
@@ -131,32 +132,30 @@ export async function getStaticPaths() {
     query: GET_ITEMS,
     variables: {},
   });
-  const paths = items.data.map(({ id }) => ({
+  const paths = items?.data?.map(({ id }) => ({
     params: {
       itemId: id,
     },
   }));
-
   return {
     paths,
-    fallback: false, // false or 'blocking'
+    fallback: true, // false or 'blocking'
   };
 }
 
 export async function getStaticProps({ params }) {
   const { itemId } = params;
   try {
-    const {
-      data: { item },
-    } = await client.query({
+    const data = await client.query({
       query: GET_ITEM_BY_ID,
       variables: {
         id: itemId,
       },
     });
+
     return {
       props: {
-        item: item.data,
+        item: data?.item?.data || null,
       },
     };
   } catch (error) {
