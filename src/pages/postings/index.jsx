@@ -84,7 +84,7 @@ export default function PostingsIndex({ postings }) {
                       <div className="flex flex-1 justify-center">
                         <Link
                           target="_blank"
-                          href={`https://wa.me/57${attributes.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/items/${id}`}
+                          href={`https://wa.me/57${attributes.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/postings/${id}`}
                           className="whitespace-nowrap text-teal-600 hover:text-teal-500"
                         >
                           Contactar

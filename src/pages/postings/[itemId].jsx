@@ -111,7 +111,7 @@ export default function Item({ item }) {
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <Button
               className="w-full py-4 sm:py-2 sm:w-auto"
-              href={`https://wa.me/57${item.attributes.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/items/${item.id}`}
+              href={`https://wa.me/57${item.attributes.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/postings/${item.id}`}
               target="_blank"
             >
               Contactar al vendedor
