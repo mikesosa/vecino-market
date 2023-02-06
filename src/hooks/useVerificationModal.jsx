@@ -21,6 +21,7 @@ export default function useVerificationModal() {
   const [loading, setLoading] = React.useState(false);
   const {
     register,
+
     handleSubmit: handleSubmitForm,
     formState: { errors },
   } = useForm({
@@ -28,10 +29,16 @@ export default function useVerificationModal() {
   });
 
   const handleSubmit = async (data) => {
+    let code = data.code.toString();
+
+    if (code.length < 6) {
+      code = data.code.toString().padStart(6, "0"); // Machetazo para que el código de 5 dígitos se convierta en 6
+    }
+
     setLoading(true);
     await marketClient
       .post("/api/verify-code", {
-        code: data.code,
+        code: code,
         phone: phone,
       })
       .then(({ data: response }) => {

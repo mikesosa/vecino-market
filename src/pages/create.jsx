@@ -82,7 +82,6 @@ export default function Home() {
         return ids;
       })
       .then(async (imagesIds) => {
-        console.log("imagesIds", imagesIds);
         return await createItem({
           variables: {
             ...data,

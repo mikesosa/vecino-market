@@ -6,7 +6,6 @@ export const codeFormSchema = yup.object().shape({
     .typeError("El código debe ser numérico")
     .test("len", "El código debe tener 6 dígitos", (val) => {
       const valueToStringWithZeros = val?.toString().padStart(6, "0");
-      console.log("valueToString", valueToStringWithZeros);
       return val && valueToStringWithZeros.length === 6;
     })
     .required("El código es requerido"),
