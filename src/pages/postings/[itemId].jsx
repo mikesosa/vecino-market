@@ -146,7 +146,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { itemId } = params;
   try {
-    const data = await client.query({
+    const { data } = await client.query({
       query: GET_ITEM_BY_ID,
       variables: {
         id: itemId,
@@ -155,7 +155,7 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        item: data?.item?.data || null,
+        item: data?.item?.data,
       },
     };
   } catch (error) {
