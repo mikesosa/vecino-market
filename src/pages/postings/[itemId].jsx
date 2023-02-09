@@ -1,13 +1,24 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/atoms/Button";
 import Carousel from "@/components/organisms/Carousel";
 import { formatCurrency } from "@/lib/formatCurrency";
 import client from "@/lib/clients/apollo-client";
 import { GET_ITEMS } from "@/lib/gpl/queries/getItems";
 import { GET_ITEM_BY_ID } from "@/lib/gpl/queries/getItemById";
+import { UPDATE_ITEM } from "@/lib/gpl/mutations/updateItem";
+import useVerificationModal from "@/hooks/useVerificationModal";
+import marketClient from "@/lib/clients/marketClient";
+import { useMutation } from "@apollo/client";
 import { ItemLayout } from "@/components/ItemLayout";
 
 export default function Item({ item }) {
+  const [updateItem, { loading: deletingPost, error: deletePostError }] =
+    useMutation(UPDATE_ITEM);
+  const [loading, setLoading] = useState(false);
+  const { isVerified, showVerificationModal, verificationModal } =
+    useVerificationModal();
+
   const getPhotos = (photos) => {
     return photos.map(({ attributes }) => {
       return {
@@ -25,6 +36,46 @@ export default function Item({ item }) {
   ];
 
   const title = `${item?.attributes?.title} - VittareMarket`;
+
+  const onSubmit = async (data) => {
+    return await updateItem({
+      variables: {
+        id: data?.id,
+        active: false,
+      },
+    })
+      .then((res) => {
+        window.location.href = "/postings";
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (isVerified.isVerified) {
+      onSubmit(isVerified.payload);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isVerified]);
+
+  const handleDelete = async () => {
+    setLoading(true);
+    // 1 - Send verification code to phone number
+    await marketClient
+      .post("/api/send-code", {
+        phone: item?.attributes?.phone_number,
+      })
+      .then(({ data: response }) => {
+        showVerificationModal(response.to, item);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
   return (
     <>
       <Head>
@@ -108,8 +159,8 @@ export default function Item({ item }) {
             )}
           </div>
         </div>
-        {item?.attributes?.phone_number && (
-          <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
+        <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
+          {item?.attributes?.phone_number && (
             <Button
               className="w-full py-4 sm:py-2 sm:w-auto"
               href={`https://wa.me/57${item?.attributes?.phone_number}?text=Hola,%20me%20interesa%20tu%20anuncio%20en%20VittareMarket%20https://vittaremarket.shop/postings/${item.id}`}
@@ -117,8 +168,20 @@ export default function Item({ item }) {
             >
               Contactar al vendedor
             </Button>
+          )}
+          <div className="mt-5">
+            <Button
+              variant="danger"
+              className="w-full py-4 sm:py-2 sm:w-auto bg-red-400"
+              onClick={() => {
+                handleDelete();
+              }}
+            >
+              {deletingPost || loading ? "Eliminando..." : "Eliminar"}
+            </Button>
           </div>
-        )}
+        </div>
+        {verificationModal}
       </ItemLayout>
     </>
   );
